@@ -1,20 +1,20 @@
+
 # RommieZ-API
 
+## Quick Start with JSON Server
 
-## Uso rápido de JSON Server
-
-1. Instala las dependencias (si no lo has hecho):
+1. Install dependencies (if you haven't already):
 	```bash
 	npm install
 	```
 
-2. Asegúrate de tener el archivo `db.json` en la raíz del proyecto (ya incluido como ejemplo).
+2. Make sure you have a `db.json` file in the project root (an example is already included).
 
-3. Inicia el servidor JSON:
+3. Start the JSON server:
 	```bash
 	npm run start-json
 	```
 
-4. Accede a la API REST en: [http://localhost:3099](http://localhost:3099)
+4. Access the REST API at: [http://localhost:3099](http://localhost:3099)
 
-Puedes modificar el archivo `db.json` para personalizar los datos simulados.
+You can edit the `db.json` file to customize the mock data.
