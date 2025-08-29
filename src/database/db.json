@@ -1,0 +1,150 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "first_name": "John",
+      "middle_name": "Michael",
+      "last_name": "Doe",
+      "username": "johndoe",
+      "email": "john.doe@email.com",
+      "password": "hashedpass123",
+      "role": "student",
+      "created_at": "2025-08-28T10:00:00.000Z"
+    },
+    {
+      "id": 2,
+      "first_name": "Anna",
+      "middle_name": null,
+      "last_name": "Smith",
+      "username": "annasmith",
+      "email": "anna.smith@email.com",
+      "password": "hashedpass456",
+      "role": "landlord",
+      "created_at": "2025-08-28T10:00:00.000Z"
+    },
+    {
+      "id": 3,
+      "first_name": "Carlos",
+      "middle_name": "Andres",
+      "last_name": "Lopez",
+      "username": "carloslopez",
+      "email": "carlos.lopez@email.com",
+      "password": "hashedpass789",
+      "role": "student",
+      "created_at": "2025-08-28T10:00:00.000Z"
+    }
+  ],
+  "publications": [
+    {
+      "id": 1,
+      "user_id": 2,
+      "title": "Room near University",
+      "description": "A cozy room close to campus with internet and utilities included.",
+      "address": "123 Main St, City",
+      "price": 350.0,
+      "is_available": true,
+      "published_at": "2025-08-28T10:00:00.000Z"
+    },
+    {
+      "id": 2,
+      "user_id": 2,
+      "title": "Shared apartment",
+      "description": "One bed available in a shared apartment, utilities included.",
+      "address": "456 College Ave, City",
+      "price": 250.0,
+      "is_available": true,
+      "published_at": "2025-08-28T10:00:00.000Z"
+    },
+    {
+      "id": 3,
+      "user_id": 2,
+      "title": "Studio apartment downtown",
+      "description": "Modern studio in city center, fully furnished with all amenities.",
+      "address": "789 Downtown Blvd, City",
+      "price": 450.0,
+      "is_available": true,
+      "published_at": "2025-08-28T10:00:00.000Z"
+    }
+  ],
+  "bookings": [
+    {
+      "id": 1,
+      "publication_id": 1,
+      "user_id": 1,
+      "start_date": "2025-09-01",
+      "end_date": "2025-12-15",
+      "status": "confirmed",
+      "created_at": "2025-08-28T10:00:00.000Z"
+    },
+    {
+      "id": 2,
+      "publication_id": 2,
+      "user_id": 3,
+      "start_date": "2025-09-10",
+      "end_date": "2025-10-10",
+      "status": "pending",
+      "created_at": "2025-08-28T10:00:00.000Z"
+    },
+    {
+      "id": 3,
+      "publication_id": 3,
+      "user_id": 1,
+      "start_date": "2025-10-01",
+      "end_date": "2025-11-30",
+      "status": "completed",
+      "created_at": "2025-08-28T10:00:00.000Z"
+    }
+  ],
+  "transactions": [
+    {
+      "id": 1,
+      "booking_id": 1,
+      "amount": 350.0,
+      "payment_method": "nequi",
+      "status": "paid",
+      "paid_at": "2025-08-28T10:00:00.000Z"
+    },
+    {
+      "id": 2,
+      "booking_id": 2,
+      "amount": 250.0,
+      "payment_method": "card",
+      "status": "pending",
+      "paid_at": "2025-08-28T10:00:00.000Z"
+    },
+    {
+      "id": 3,
+      "booking_id": 3,
+      "amount": 450.0,
+      "payment_method": "daviplata",
+      "status": "paid",
+      "paid_at": "2025-08-28T10:00:00.000Z"
+    }
+  ],
+  "reviews": [
+    {
+      "id": 1,
+      "booking_id": 1,
+      "user_id": 1,
+      "rating": 5,
+      "comment": "The room was excellent, very clean and close to the university.",
+      "created_at": "2025-08-28T10:00:00.000Z"
+    },
+    {
+      "id": 2,
+      "booking_id": 1,
+      "user_id": 1,
+      "rating": 4,
+      "comment": "Everything was good but could improve internet speed.",
+      "created_at": "2025-08-28T10:00:00.000Z"
+    },
+    {
+      "id": 3,
+      "booking_id": 3,
+      "user_id": 1,
+      "rating": 5,
+      "comment": "Perfect location and amazing amenities. Highly recommend!",
+      "created_at": "2025-08-28T10:00:00.000Z"
+    }
+  ]
+}
