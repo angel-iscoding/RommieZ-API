@@ -10,22 +10,37 @@ export const getUserById = async (id) => {
     return rows[0];
 };
 
+export const checkUserExists = async (id) => {
+    const [rows] = await pool.query("SELECT id FROM users WHERE id = ?", [id]);
+    return rows.length > 0;
+};
+
+export const checkEmailExists = async (email) => {
+    const [rows] = await pool.query("SELECT id FROM users WHERE email = ?", [email]);
+    return rows.length > 0;
+};
+
 export const createUser = async (user) => {
-    const { first_name, middle_name, last_name, username, email, password, role } = user;
+    const { first_name, middle_name, last_name, username, email, password, city, birthdate, role } = user;
     const [result] = await pool.query(
-        "INSERT INTO users (first_name, middle_name, last_name, username, email, password, role) VALUES (?, ?, ?, ?, ?, ?, ?)",
-        [first_name, middle_name, last_name, username, email, password, role]
+        "INSERT INTO users (first_name, middle_name, last_name, username, email, password, city, birthdate, role) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        [first_name, middle_name, last_name, username, email, password, city, birthdate, role]
     );
     return result.insertId;
 };
 
 export const updateUser = async (id, user) => {
-    const { first_name, middle_name, last_name, username, email, password, role } = user;
+    const { first_name, middle_name, last_name, city, email, birthdate } = user;
     const [result] = await pool.query(
-        "UPDATE users SET first_name=?, middle_name=?, last_name=?, username=?, email=?, password=?, role=? WHERE id=?",
-        [first_name, middle_name, last_name, username, email, password, role, id]
+        "UPDATE users SET first_name=?, middle_name=?, last_name=?, city=?, email=?, birthdate=? WHERE id=?",
+        [first_name, middle_name, last_name, city, email, birthdate, id]
     );
     return result.affectedRows > 0;
+};
+
+export const getUserSocialContacts = async (userId) => {
+    const [rows] = await pool.query("SELECT * FROM contact WHERE user_id = ?", [userId]);
+    return rows[0];
 };
 
 export const deleteUserById = async (id) => {

@@ -8,23 +8,27 @@ const router = Router();
 /* 
 Endpoints:
 
-GET: /users
-GET: /users/:id
-GET: /roomz
-GET: /roomz/:id
+USER ENDPOINTS:
+GET: /users                           - Get all users
+GET: /users/:id                       - Get user by id  
+GET: /users/:id/exists                - Check if user exists
+GET: /users/:id/contacts              - Get user social contacts
+POST: /users/check-email              - Check if email is registered
+POST: /users                          - Create user
+PUT: /users/:id                       - Update user (name, city, email, birthdate)
+DELETE: /users/:id                    - Delete user
 
-POST: /users    
-POST: /roomz
-
-PUT: /users/:id
-PUT: /roomz/:id
-
-DELETE: /users/:id
-DELETE: /roomz/:id
+ROOMZ ENDPOINTS:
+GET: /roomz                           - Get all roomz (all types)
+GET: /roomz/type/:type                - Get roomz by type (studio, apartment, residential_complex)
+GET: /roomz/:id                       - Get roomz by id
+POST: /roomz                          - Create roomz
+PUT: /roomz/:id                       - Update roomz
+DELETE: /roomz/:id                    - Delete roomz
 */
 
 router.get('/', (req, res) => {
-    res.send(`Server listering on Endpoint: localhost:${PORT}/api/${VERSION}`);
+    res.send(`Server listening on Endpoint: localhost:${PORT}/api/${VERSION}`);
 });
 
 router.use('/roomz', roomzRouter);

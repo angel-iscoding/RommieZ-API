@@ -1,15 +1,16 @@
 import {
-    getRoomz,
+    getAllRoomz,
     getRoomzById,
+    getRoomzByType,
     createRoomz,
     updateRoomz,
     deleteRoomzById
 } from "../service/roomzService.js";
 
 
-export const getAllRoomz = async (req, res) => {
+export const getAllRoomsController = async (req, res) => {
     try {
-        const roomz = await getRoomz();
+        const roomz = await getAllRoomz();
         if (roomz.length === 0) {
             return res.status(404).json({ message: "No roomz found.", roomz: [] });
         }
@@ -19,8 +20,29 @@ export const getAllRoomz = async (req, res) => {
     }
 };
 
+export const getRoomzByTypeController = async (req, res) => {
+    try {
+        const { type } = req.params;
+        const validTypes = ['studio', 'apartment', 'residential_complex'];
+        
+        if (!validTypes.includes(type)) {
+            return res.status(400).json({ 
+                error: "Invalid roomz type. Valid types are: studio, apartment, residential_complex" 
+            });
+        }
+        
+        const roomz = await getRoomzByType(type);
+        if (roomz.length === 0) {
+            return res.status(404).json({ message: `No ${type} roomz found.`, roomz: [] });
+        }
+        res.status(200).json({ message: `${type} roomz retrieved successfully`, roomz });
+    } catch (error) {
+        res.status(500).json({ error: "Internal server error", details: error.message });
+    }
+};
 
-export const getOneRoomz = async (req, res) => {
+
+export const getRoomzByIdController = async (req, res) => {
     try {
         const id = req.params.id;
         if (!id || isNaN(id)) {
@@ -37,13 +59,22 @@ export const getOneRoomz = async (req, res) => {
 };
 
 
-export const postRoomz = async (req, res) => {
+export const createRoomzController = async (req, res) => {
     try {
-        const { user_id, title, description, address, price, is_available } = req.body;
-        if (!user_id || !title || !description || !address || !price || is_available === undefined) {
-            return res.status(400).json({ error: "All fields are required" });
+        const { user_id, title, subtitle, details, description, address, price, roomz_type, is_available } = req.body;
+        const validTypes = ['studio', 'apartment', 'residential_complex'];
+        
+        if (!user_id || !title || !subtitle || !details || !description || !address || !price || !roomz_type || is_available === undefined) {
+            return res.status(400).json({ error: "All fields are required (user_id, title, subtitle, details, description, address, price, roomz_type, is_available)" });
         }
-        const roomId = await createRoomz({ user_id, title, description, address, price, is_available });
+        
+        if (!validTypes.includes(roomz_type)) {
+            return res.status(400).json({ 
+                error: "Invalid roomz type. Valid types are: studio, apartment, residential_complex" 
+            });
+        }
+        
+        const roomId = await createRoomz({ user_id, title, subtitle, details, description, address, price, roomz_type, is_available });
         res.status(201).json({ message: "Room created successfully", roomId });
     } catch (error) {
         res.status(500).json({ error: "Internal server error", details: error.message });
@@ -51,17 +82,26 @@ export const postRoomz = async (req, res) => {
 };
 
 
-export const putRoomz = async (req, res) => {
+export const updateRoomzController = async (req, res) => {
     try {
         const id = req.params.id;
-        const { user_id, title, description, address, price, is_available } = req.body;
+        const { user_id, title, subtitle, details, description, address, price, roomz_type, is_available } = req.body;
+        const validTypes = ['studio', 'apartment', 'residential_complex'];
+        
         if (!id || isNaN(id)) {
             return res.status(400).json({ error: "You need to enter a valid numeric id" });
         }
-        if (!user_id || !title || !description || !address || !price || is_available === undefined) {
-            return res.status(400).json({ error: "All fields are required" });
+        if (!user_id || !title || !subtitle || !details || !description || !address || !price || !roomz_type || is_available === undefined) {
+            return res.status(400).json({ error: "All fields are required (user_id, title, subtitle, details, description, address, price, roomz_type, is_available)" });
         }
-        const updated = await updateRoomz(parseInt(id), { user_id, title, description, address, price, is_available });
+        
+        if (!validTypes.includes(roomz_type)) {
+            return res.status(400).json({ 
+                error: "Invalid roomz type. Valid types are: studio, apartment, residential_complex" 
+            });
+        }
+        
+        const updated = await updateRoomz(parseInt(id), { user_id, title, subtitle, details, description, address, price, roomz_type, is_available });
         if (!updated) {
             return res.status(404).json({ error: "Room not found" });
         }
@@ -72,7 +112,7 @@ export const putRoomz = async (req, res) => {
 };
 
 
-export const deleteRoomz = async (req, res) => {
+export const deleteRoomzController = async (req, res) => {
     try {
         const id = req.params.id;
         if (!id || isNaN(id)) {

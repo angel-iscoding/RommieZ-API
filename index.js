@@ -19,7 +19,7 @@ const appInit = async () => {
                 DB_PORT: ${DB_PORT}
                 `);
 
-            console.log(`Server listering on Endpoint: ${URL}:${PORT}/api/${VERSION}`);
+            console.log(`Server listening on Endpoint: ${URL}:${PORT}/api/${VERSION}`);
         });
     } catch (err) {
         console.error('Error initializing application:', err.message);
