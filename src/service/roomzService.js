@@ -1,7 +1,6 @@
-import pool from "../../config/databaseConecction.js";
+import pool from "../config/databaseConecction.js";
 
-
-export const getAllRoomz = async () => {
+export const getRoomz = async () => {
     const [rows] = await pool.query(`
         SELECT 
             p.id, p.user_id, p.title, p.description, p.address, p.price, p.is_available, p.published_at
@@ -59,7 +58,7 @@ export const updateRoomz = async (id, roomz) => {
     return result.affectedRows > 0;
 };
 
-export const deleteRoomz = async (id) => {
+export const deleteRoomzById = async (id) => {
     const [result] = await pool.query("DELETE FROM publications WHERE id = ?", [id]);
     return result.affectedRows > 0;
 };
