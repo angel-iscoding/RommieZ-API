@@ -4,7 +4,7 @@ import { PORT, VERSION } from "./src/config/dotenv.js";
 
 const appInit = async () => {
     try {
-        server.listen(PORT, () => {
+        server.listen(PORT,'0.0.0.0', () => {
             console.log(`Server listering on Endpoint: localhost:${PORT}/api/${VERSION}`);
         });
     } catch (err) {
