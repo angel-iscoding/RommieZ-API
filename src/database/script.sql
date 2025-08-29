@@ -13,14 +13,14 @@ SELECT * FROM users;
 
 -- Ver todas las publicaciones con el nombre del landlord
 SELECT p.*, u.first_name AS landlord_first_name, u.last_name AS landlord_last_name
-FROM publications p
+FROM roomz p
 JOIN users u ON p.user_id = u.id;
 
 -- Ver todas las reservas con datos del estudiante y la publicación
 SELECT b.*, u.first_name AS student_first_name, u.last_name AS student_last_name, p.title AS publication_title
 FROM bookings b
 JOIN users u ON b.user_id = u.id
-JOIN publications p ON b.publication_id = p.id;
+JOIN roomz p ON b.publication_id = p.id;
 
 -- Ver todas las transacciones con datos de la reserva y usuario
 SELECT t.*, b.user_id, u.first_name AS student_first_name, u.last_name AS student_last_name
@@ -33,7 +33,7 @@ SELECT r.*, u.first_name AS reviewer_first_name, u.last_name AS reviewer_last_na
 FROM reviews r
 JOIN users u ON r.user_id = u.id
 JOIN bookings b ON r.booking_id = b.id
-JOIN publications p ON b.publication_id = p.id;
+JOIN roomz p ON b.publication_id = p.id;
 
 -- USERS
 CREATE TABLE users (
@@ -44,15 +44,19 @@ CREATE TABLE users (
     username VARCHAR(50) UNIQUE NOT NULL,
     email VARCHAR(100) UNIQUE NOT NULL,
     `password` VARCHAR(255) NOT NULL,
+	city VARCHAR(100) NOT NULL,
+	birthdate DATE NOT NULL,
     `role` ENUM('landlord', 'student') NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL
 );
 
--- PUBLICATIONS 
-CREATE TABLE publications (
+-- roomz 
+CREATE TABLE roomz (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL, -- landlord who posts
     title VARCHAR(200) NOT NULL,
+	subtitle VARCHAR(200) NOT NULL,
+	details VARCHAR(100) NOT NULL, 
     `description` TEXT NOT NULL,
     address VARCHAR(255) NOT NULL,
     price DECIMAL(10,2) NOT NULL,
@@ -71,7 +75,7 @@ CREATE TABLE bookings (
     end_date DATE NOT NULL,
     `status` ENUM('pending', 'confirmed', 'canceled', 'completed') NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
-    FOREIGN KEY (publication_id) REFERENCES publications(id)
+    FOREIGN KEY (publication_id) REFERENCES roomz(id)
         ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (user_id) REFERENCES users(id)
         ON DELETE CASCADE ON UPDATE CASCADE
@@ -90,7 +94,7 @@ CREATE TABLE transactions (
 );
 
 -- REVIEWS 
-CREATE TABLE reviews (
+/*CREATE TABLE reviews (
     id INT AUTO_INCREMENT PRIMARY KEY,
     booking_id INT NOT NULL,
     user_id INT NOT NULL,
@@ -101,7 +105,60 @@ CREATE TABLE reviews (
         ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (user_id) REFERENCES users(id)
         ON DELETE CASCADE ON UPDATE CASCADE
-);
+);*/
+-- TABLA CONTACT CON URLs DE REDES SOCIALES
+CREATE TABLE contact (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+
+    -- TELÉFONO
+    phone_number VARCHAR(20),
+    whatsapp_number VARCHAR(20),
+    
+    -- URLs DE REDES SOCIALES
+    instagram_url VARCHAR(255),
+    facebook_url VARCHAR(255),
+    twitter_url VARCHAR(255),
+    tiktok_url VARCHAR(255),
+    linkedin_url VARCHAR(255),
+    
+    -- CONTROL DE TIEMPO
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    
+    -- LLAVE FORÁNEA CON USUARIOS
+    FOREIGN KEY (user_id) REFERENCES users(id)
+        ON DELETE CASCADE ON UPDATE CASCADE,
+        
+    -- VALIDACIONES DE FORMATO PARA TELÉFONOS
+    CONSTRAINT chk_phone_format 
+        CHECK (phone_number IS NULL OR phone_number REGEXP '^[+]?[0-9\\s\\-\\(\\)]+$'),
+        
+    CONSTRAINT chk_whatsapp_format 
+        CHECK (whatsapp_number IS NULL OR whatsapp_number REGEXP '^[+]?[0-9\\s\\-\\(\\)]+$'),
+        
+    -- VALIDACIONES DE URLs - FORMATO BÁSICO
+    CONSTRAINT chk_instagram_url 
+        CHECK (instagram_url IS NULL OR instagram_url REGEXP '^https?://(www\\.)?(instagram\\.com|instagr\\.am)/[a-zA-Z0-9._]+/?$'),
+        
+    CONSTRAINT chk_facebook_url 
+        CHECK (facebook_url IS NULL OR facebook_url REGEXP '^https?://(www\\.)?facebook\\.com/[a-zA-Z0-9._]+/?$'),
+        
+    CONSTRAINT chk_twitter_url 
+        CHECK (twitter_url IS NULL OR twitter_url REGEXP '^https?://(www\\.)?(twitter\\.com|x\\.com)/[a-zA-Z0-9_]+/?$'),
+        
+    CONSTRAINT chk_tiktok_url 
+        CHECK (tiktok_url IS NULL OR tiktok_url REGEXP '^https?://(www\\.)?tiktok\\.com/@[a-zA-Z0-9._]+/?$'),
+        
+    CONSTRAINT chk_linkedin_url 
+        CHECK (linkedin_url IS NULL OR linkedin_url REGEXP '^https?://(www\\.)?linkedin\\.com/in/[a-zA-Z0-9\\-]+/?$'),
+        
+    -- CONSTRAINT PARA ASEGURAR AL MENOS UN MEDIO DE CONTACTO
+    CONSTRAINT chk_at_least_one_contact 
+        CHECK (phone_number IS NOT NULL OR whatsapp_number IS NOT NULL OR 
+               instagram_url IS NOT NULL OR facebook_url IS NOT NULL OR 
+               twitter_url IS NOT NULL OR tiktok_url IS NOT NULL OR 
+               linkedin_url IS NOT NULL);
 
 
 INSERT INTO users (first_name, middle_name, last_name, username, email, `password`, `role`)
@@ -110,8 +167,8 @@ VALUES
 ('Anna', NULL, 'Smith', 'annasmith', 'anna.smith@email.com', 'hashedpass456', 'landlord'),
 ('Carlos', 'Andres', 'Lopez', 'carloslopez', 'carlos.lopez@email.com', 'hashedpass789', 'student');
 
--- PUBLICATIONS
-INSERT INTO publications (user_id, title, `description`, address, price, is_available)
+-- roomz
+INSERT INTO roomz (user_id, title, `description`, address, price, is_available)
 VALUES
 (2, 'Room near University', 'A cozy room close to campus with internet and utilities included.', '123 Main St, City', 350.00, TRUE),
 (2, 'Shared apartment', 'One bed available in a shared apartment, utilities included.', '456 College Ave, City', 250.00, TRUE);
@@ -134,5 +191,34 @@ VALUES
 (1, 1, 5, 'The room was excellent, very clean and close to the university.'),
 (1, 1, 4, 'Everything was good but could improve internet speed.');
 
-
+-- DATOS DE CONTACTO CON URLs
+INSERT INTO contact (user_id, phone_number, whatsapp_number, instagram_url, facebook_url, twitter_url, tiktok_url, linkedin_url)
+VALUES
+(1, 
+ '+57 300 123 4567', 
+ '+57 300 123 4567',
+ 'https://www.instagram.com/john_doe_2025',
+ 'https://www.facebook.com/john.doe.student',
+ 'https://www.twitter.com/johndoe2025',
+ 'https://www.tiktok.com/@john_doe_official',
+ 'https://www.linkedin.com/in/john-doe-student'
+),
+(2, 
+ '+57 305 987 6543',
+ '+57 305 987 6543', 
+ 'https://www.instagram.com/anna_rooms_barranquilla',
+ 'https://www.facebook.com/anna.smith.landlord',
+ NULL,
+ NULL,
+ 'https://www.linkedin.com/in/anna-smith-properties'
+),
+(3, 
+ NULL,
+ '+57 310 456 7890',
+ 'https://www.instagram.com/carlos_lopez_univ',
+ NULL,
+ 'https://www.x.com/carloslopez2025',
+ 'https://www.tiktok.com/@carlos_student_life',
+ NULL
+);
 
