@@ -8,24 +8,24 @@ Endpoints:
 
 GET: /users
 GET: /users/:id
-GET: /pensions
-GET: /pensions/:id
+GET: /roomz
+GET: /roomz/:id
 
 POST: /users    
-POST: /pensions
+POST: /roomz
 
 PUT: /users/:id
-PUT: /pensions/:id
+PUT: /roomz/:id
 
 DELETE: /users/:id
-DELETE: /pensions/:id
+DELETE: /roomz/:id
 */
 
 router.get('/', (req, res) => {
     res.send(`Server listering on Endpoint: localhost:${PORT}/api/${VERSION}`);
 });
 
-router.use('/pensions', (req, res) => {
+router.use('/roomz', (req, res) => {
     res.send(`Server listering on Endpoint: localhost:${PORT}/api/${VERSION}`);
 });
 router.use('/users', (req, res) => {
