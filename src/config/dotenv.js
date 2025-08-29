@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 // Server port
-export const PORT = process.env.PORT;
+export const PORT = process.env.PORT || 3010;
 
 //Api Version
 export const VERSION = "V1";
