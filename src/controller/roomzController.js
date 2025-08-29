@@ -1,15 +1,15 @@
 import {
-    getAllRoomz,
+    getRoomz,
     getRoomzById,
     createRoomz,
     updateRoomz,
-    deleteRoomz
+    deleteRoomzById
 } from "../service/roomzService.js";
 
 
-export const getRoomz = async (req, res) => {
+export const getAllRoomz = async (req, res) => {
     try {
-        const roomz = await getAllRoomz();
+        const roomz = await getRoomz();
         if (roomz.length === 0) {
             return res.status(404).json({ message: "No roomz found.", roomz: [] });
         }
@@ -20,7 +20,7 @@ export const getRoomz = async (req, res) => {
 };
 
 
-export const getRoom = async (req, res) => {
+export const getOneRoomz = async (req, res) => {
     try {
         const id = req.params.id;
         if (!id || isNaN(id)) {
@@ -37,7 +37,7 @@ export const getRoom = async (req, res) => {
 };
 
 
-export const postRoom = async (req, res) => {
+export const postRoomz = async (req, res) => {
     try {
         const { user_id, title, description, address, price, is_available } = req.body;
         if (!user_id || !title || !description || !address || !price || is_available === undefined) {
@@ -51,7 +51,7 @@ export const postRoom = async (req, res) => {
 };
 
 
-export const putRoom = async (req, res) => {
+export const putRoomz = async (req, res) => {
     try {
         const id = req.params.id;
         const { user_id, title, description, address, price, is_available } = req.body;
@@ -72,13 +72,13 @@ export const putRoom = async (req, res) => {
 };
 
 
-export const deleteRoomController = async (req, res) => {
+export const deleteRoomz = async (req, res) => {
     try {
         const id = req.params.id;
         if (!id || isNaN(id)) {
             return res.status(400).json({ error: "You need to enter a valid numeric id" });
         }
-        const deleted = await deleteRoomz(parseInt(id));
+        const deleted = await deleteRoomzById(parseInt(id));
         if (!deleted) {
             return res.status(404).json({ error: "Room not found" });
         }

@@ -4,7 +4,7 @@ import {
     getUserById,
     createUser,
     updateUser,
-    deleteUser
+    deleteUserById
 } from "../service/usersService.js";
 
 export const getUsers = async (req, res) => {
@@ -68,13 +68,13 @@ export const putUser = async (req, res) => {
     }
 };
 
-export const deleteUserController = async (req, res) => {
+export const deleteUser = async (req, res) => {
     try {
         const id = req.params.id;
         if (!id || isNaN(id)) {
             return res.status(400).json({ error: "You need to enter a valid numeric id" });
         }
-        const deleted = await deleteUser(parseInt(id));
+        const deleted = await deleteUserById(parseInt(id));
         if (!deleted) {
             return res.status(404).json({ error: "User not found" });
         }
