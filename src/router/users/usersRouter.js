@@ -1,16 +1,39 @@
 import { Router } from "express";
-import { getUsers, getUser, postUser, putUser, deleteUser } from '../../controller/usersController.js'
+import { 
+    getUsers, 
+    getUser, 
+    checkUserExistence, 
+    checkEmailRegistration, 
+    postUser, 
+    putUser, 
+    getUserContacts, 
+    deleteUser 
+} from '../../controller/usersController.js'
 
 const usersRouter = Router();
 
-usersRouter.get('/', getUsers)
+// Get all users
+usersRouter.get('/', getUsers);
 
+// Get user by id
 usersRouter.get('/:id', getUser);
 
+// Check if user exists
+usersRouter.get('/:id/exists', checkUserExistence);
+
+// Get user social contacts
+usersRouter.get('/:id/contacts', getUserContacts);
+
+// Check if email is registered
+usersRouter.post('/check-email', checkEmailRegistration);
+
+// Create user
 usersRouter.post('/', postUser);
 
-usersRouter.put(':id', putUser);
+// Update user (name, city, email, birthdate)
+usersRouter.put('/:id', putUser);
 
-usersRouter.delete(':id', deleteUser)
+// Delete user
+usersRouter.delete('/:id', deleteUser);
 
 export default usersRouter;
