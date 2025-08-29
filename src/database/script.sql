@@ -2,39 +2,6 @@ DROP DATABASE IF EXISTS RoomieZ;
 CREATE DATABASE RoomieZ;
 USE RoomieZ;
 
--- SHOW DATA
-
-SHOW TABLES;
-
--- CONSULTAS PERSONALIZADAS PARA VISUALIZAR DATOS
-
--- Ver todos los usuarios
-SELECT * FROM users;
-
--- Ver todas las publicaciones con el nombre del landlord
-SELECT p.*, u.first_name AS landlord_first_name, u.last_name AS landlord_last_name
-FROM roomz p
-JOIN users u ON p.user_id = u.id;
-
--- View all bookings with student data and publication
-SELECT b.*, u.first_name AS student_first_name, u.last_name AS student_last_name, p.title AS publication_title
-FROM bookings b
-JOIN users u ON b.user_id = u.id
-JOIN roomz p ON b.publication_id = p.id;
-
--- Ver todas las transacciones con datos de la reserva y usuario
-SELECT t.*, b.user_id, u.first_name AS student_first_name, u.last_name AS student_last_name
-FROM transactions t
-JOIN bookings b ON t.booking_id = b.id
-JOIN users u ON b.user_id = u.id;
-
--- View all reviews with user data and publication
-SELECT r.*, u.first_name AS reviewer_first_name, u.last_name AS reviewer_last_name, p.title AS publication_title
-FROM reviews r
-JOIN users u ON r.user_id = u.id
-JOIN bookings b ON r.booking_id = b.id
-JOIN roomz p ON b.publication_id = p.id;
-
 -- USERS
 CREATE TABLE users (
 	id INT AUTO_INCREMENT PRIMARY KEY,
@@ -223,4 +190,31 @@ VALUES
  'https://www.tiktok.com/@carlos_student_life',
  NULL
 );
+
+-- ==========================================
+-- CONSULTAS DE VERIFICACIÓN Y VISUALIZACIÓN
+-- ==========================================
+
+-- Mostrar todas las tablas creadas
+SHOW TABLES;
+
+-- Ver todos los usuarios
+SELECT * FROM users;
+
+-- Ver todas las publicaciones con el nombre del landlord
+SELECT p.*, u.first_name AS landlord_first_name, u.last_name AS landlord_last_name
+FROM roomz p
+JOIN users u ON p.user_id = u.id;
+
+-- Ver todas las reservas con datos del estudiante y publicación
+SELECT b.*, u.first_name AS student_first_name, u.last_name AS student_last_name, p.title AS publication_title
+FROM bookings b
+JOIN users u ON b.user_id = u.id
+JOIN roomz p ON b.publication_id = p.id;
+
+-- Ver todas las transacciones con datos de la reserva y usuario
+SELECT t.*, b.user_id, u.first_name AS student_first_name, u.last_name AS student_last_name
+FROM transactions t
+JOIN bookings b ON t.booking_id = b.id
+JOIN users u ON b.user_id = u.id;
 
