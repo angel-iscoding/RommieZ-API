@@ -1,19 +1,18 @@
-
 import { Router } from "express";
 import {
-	getRoomz,
-	getRoom,
-	postRoom,
-	putRoom,
-	deleteRoomController
+	getAllRoomz,
+	getOneRoomz,
+	postRoomz,
+	putRoomz,
+	deleteRoomz
 } from "../../controller/roomzController.js";
 
 const roomzRouter = Router();
 
-roomzRouter.get('/', getRoomz);
-roomzRouter.get('/:id', getRoom);
-roomzRouter.post('/', postRoom);
-roomzRouter.put('/:id', putRoom);
-roomzRouter.delete('/:id', deleteRoomController);
+roomzRouter.get('/', getAllRoomz);
+roomzRouter.get('/:id', getOneRoomz);
+roomzRouter.post('/', postRoomz);
+roomzRouter.put('/:id', putRoomz);
+roomzRouter.delete('/:id', deleteRoomz);
 
 export default roomzRouter;
