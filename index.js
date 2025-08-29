@@ -7,7 +7,6 @@ const appInit = async () => {
         server.listen(PORT,'0.0.0.0', () => {
             console.log(`Dotenv chargered:
                 PORT: ${PORT}
-                URL: ${URL}
                 VERSION: ${VERSION}
                 
                 Database envs:
@@ -19,13 +18,11 @@ const appInit = async () => {
                 DB_PORT: ${DB_PORT}
                 `);
 
-            console.log(`Server listening on Endpoint: ${URL}:${PORT}/api/${VERSION}`);
+            console.log(`Server listening on Endpoint: http://0.0.0.0:${PORT}/api/${VERSION}`);
         });
     } catch (err) {
         console.error('Error initializing application:', err.message);
     }
-    
-    
 }
 
 appInit();
