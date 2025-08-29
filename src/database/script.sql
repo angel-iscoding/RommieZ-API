@@ -16,7 +16,7 @@ SELECT p.*, u.first_name AS landlord_first_name, u.last_name AS landlord_last_na
 FROM roomz p
 JOIN users u ON p.user_id = u.id;
 
--- Ver todas las reservas con datos del estudiante y la publicación
+-- View all bookings with student data and publication
 SELECT b.*, u.first_name AS student_first_name, u.last_name AS student_last_name, p.title AS publication_title
 FROM bookings b
 JOIN users u ON b.user_id = u.id
@@ -28,7 +28,7 @@ FROM transactions t
 JOIN bookings b ON t.booking_id = b.id
 JOIN users u ON b.user_id = u.id;
 
--- Ver todas las reseñas con datos del usuario y publicación
+-- View all reviews with user data and publication
 SELECT r.*, u.first_name AS reviewer_first_name, u.last_name AS reviewer_last_name, p.title AS publication_title
 FROM reviews r
 JOIN users u ON r.user_id = u.id
@@ -60,6 +60,7 @@ CREATE TABLE roomz (
     `description` TEXT NOT NULL,
     address VARCHAR(255) NOT NULL,
     price DECIMAL(10,2) NOT NULL,
+    roomz_type ENUM('studio', 'apartment', 'residential_complex') NOT NULL,
     is_available BOOLEAN NOT NULL DEFAULT TRUE,
     published_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
     FOREIGN KEY (user_id) REFERENCES users(id)
@@ -111,7 +112,7 @@ CREATE TABLE contact (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
 
-    -- TELÉFONO
+    -- PHONE
     phone_number VARCHAR(20),
     whatsapp_number VARCHAR(20),
     
@@ -126,18 +127,18 @@ CREATE TABLE contact (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     
-    -- LLAVE FORÁNEA CON USUARIOS
+    -- FOREIGN KEY WITH USERS
     FOREIGN KEY (user_id) REFERENCES users(id)
         ON DELETE CASCADE ON UPDATE CASCADE,
         
-    -- VALIDACIONES DE FORMATO PARA TELÉFONOS
+    -- FORMAT VALIDATIONS FOR PHONES
     CONSTRAINT chk_phone_format 
         CHECK (phone_number IS NULL OR phone_number REGEXP '^[+]?[0-9\\s\\-\\(\\)]+$'),
         
     CONSTRAINT chk_whatsapp_format 
         CHECK (whatsapp_number IS NULL OR whatsapp_number REGEXP '^[+]?[0-9\\s\\-\\(\\)]+$'),
         
-    -- VALIDACIONES DE URLs - FORMATO BÁSICO
+    -- URL VALIDATIONS - BASIC FORMAT
     CONSTRAINT chk_instagram_url 
         CHECK (instagram_url IS NULL OR instagram_url REGEXP '^https?://(www\\.)?(instagram\\.com|instagr\\.am)/[a-zA-Z0-9._]+/?$'),
         
@@ -161,17 +162,18 @@ CREATE TABLE contact (
                linkedin_url IS NOT NULL);
 
 
-INSERT INTO users (first_name, middle_name, last_name, username, email, `password`, `role`)
+INSERT INTO users (first_name, middle_name, last_name, username, email, `password`, city, birthdate, `role`)
 VALUES 
-('John', 'Michael', 'Doe', 'johndoe', 'john.doe@email.com', 'hashedpass123', 'student'),
-('Anna', NULL, 'Smith', 'annasmith', 'anna.smith@email.com', 'hashedpass456', 'landlord'),
-('Carlos', 'Andres', 'Lopez', 'carloslopez', 'carlos.lopez@email.com', 'hashedpass789', 'student');
+('John', 'Michael', 'Doe', 'johndoe', 'john.doe@email.com', 'hashedpass123', 'Barranquilla', '1998-05-15', 'student'),
+('Anna', NULL, 'Smith', 'annasmith', 'anna.smith@email.com', 'hashedpass456', 'Barranquilla', '1985-03-20', 'landlord'),
+('Carlos', 'Andres', 'Lopez', 'carloslopez', 'carlos.lopez@email.com', 'hashedpass789', 'Barranquilla', '1999-11-10', 'student');
 
 -- roomz
-INSERT INTO roomz (user_id, title, `description`, address, price, is_available)
+INSERT INTO roomz (user_id, title, subtitle, details, `description`, address, price, roomz_type, is_available)
 VALUES
-(2, 'Room near University', 'A cozy room close to campus with internet and utilities included.', '123 Main St, City', 350.00, TRUE),
-(2, 'Shared apartment', 'One bed available in a shared apartment, utilities included.', '456 College Ave, City', 250.00, TRUE);
+(2, 'Room near University', 'Cozy student accommodation', 'Internet, utilities included', 'A cozy room close to campus with internet and utilities included.', '123 Main St, City', 350.00, 'apartment', TRUE),
+(2, 'Shared apartment', 'Shared living space', 'Utilities included', 'One bed available in a shared apartment, utilities included.', '456 College Ave, City', 250.00, 'apartment', TRUE),
+(2, 'Studio apartment downtown', 'Modern city center studio', 'Fully furnished', 'Modern studio in city center, fully furnished with all amenities.', '789 Downtown Blvd, City', 450.00, 'studio', TRUE);
 
 -- BOOKINGS
 INSERT INTO bookings (publication_id, user_id, start_date, end_date, status)
