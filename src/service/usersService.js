@@ -1,4 +1,4 @@
-import pool from "../../config/databaseConecction.js";
+import pool from "../config/databaseConecction.js";
 
 export const getAllUsers = async () => {
     const [rows] = await pool.query("SELECT * FROM users");
@@ -28,7 +28,7 @@ export const updateUser = async (id, user) => {
     return result.affectedRows > 0;
 };
 
-export const deleteUser = async (id) => {
+export const deleteUserById = async (id) => {
     const [result] = await pool.query("DELETE FROM users WHERE id = ?", [id]);
     return result.affectedRows > 0;
 };
