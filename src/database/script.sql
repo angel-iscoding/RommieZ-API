@@ -160,7 +160,7 @@ VALUES
 (1, 1, 5, 'The room was excellent, very clean and close to the university.'),
 (1, 1, 4, 'Everything was good but could improve internet speed.');
 
--- DATOS DE CONTACTO CON URLs
+-- CONTACT DATA WITH URLs
 INSERT INTO contact (user_id, phone_number, whatsapp_number, instagram_url, facebook_url, twitter_url, tiktok_url, linkedin_url)
 VALUES
 (1, 
@@ -192,27 +192,27 @@ VALUES
 );
 
 -- ==========================================
--- CONSULTAS DE VERIFICACIÓN Y VISUALIZACIÓN
+-- VERIFICATION AND VISUALIZATION QUERIES
 -- ==========================================
 
--- Mostrar todas las tablas creadas
+-- Show all created tables
 SHOW TABLES;
 
--- Ver todos los usuarios
+-- View all users
 SELECT * FROM users;
 
--- Ver todas las publicaciones con el nombre del landlord
+-- View all publications with landlord name
 SELECT p.*, u.first_name AS landlord_first_name, u.last_name AS landlord_last_name
 FROM roomz p
 JOIN users u ON p.user_id = u.id;
 
--- Ver todas las reservas con datos del estudiante y publicación
+-- View all bookings with student data and publication
 SELECT b.*, u.first_name AS student_first_name, u.last_name AS student_last_name, p.title AS publication_title
 FROM bookings b
 JOIN users u ON b.user_id = u.id
 JOIN roomz p ON b.publication_id = p.id;
 
--- Ver todas las transacciones con datos de la reserva y usuario
+-- View all transactions with booking and user data
 SELECT t.*, b.user_id, u.first_name AS student_first_name, u.last_name AS student_last_name
 FROM transactions t
 JOIN bookings b ON t.booking_id = b.id

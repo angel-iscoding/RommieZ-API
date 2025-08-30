@@ -5,11 +5,11 @@ import { PORT, VERSION, DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE, DB_PORT } fr
 const appInit = async () => {
     try {
         server.listen(PORT,'0.0.0.0', () => {
-            console.log(`Dotenv chargered:
+            console.log(`Environment loaded:
                 PORT: ${PORT}
                 VERSION: ${VERSION}
                 
-                Database envs:
+                Database environment variables:
 
                 DB_HOST: ${DB_HOST}
                 DB_USER: ${DB_USER}
@@ -18,7 +18,7 @@ const appInit = async () => {
                 DB_PORT: ${DB_PORT}
                 `);
 
-            console.log(`Server listening on Endpoint: http://0.0.0.0:${PORT}/api/${VERSION}`);
+            console.log(`Server listening on endpoint: http://0.0.0.0:${PORT}/api/${VERSION}`);
         });
     } catch (err) {
         console.error('Error initializing application:', err.message);

@@ -29,7 +29,7 @@ DELETE: /roomz/:id                    - Delete roomz
 */
 
 router.get('/', (req, res) => {
-    res.send(`Server listening on Endpoint: localhost:${PORT}/api/${VERSION}`);
+    res.send(`Server listening on endpoint: localhost:${PORT}/api/${VERSION}`);
 });
 
 router.use('/roomz', roomzRouter);
