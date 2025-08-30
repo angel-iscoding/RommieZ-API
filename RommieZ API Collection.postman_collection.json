@@ -1,0 +1,558 @@
+{
+	"info": {
+		"_postman_id": "e9b69469-df71-46b9-baad-1f51c563c847",
+		"name": "RommieZ API Collection",
+		"description": "Colección completa de endpoints para la API de RommieZ - Sistema de alquiler de habitaciones",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "41957491"
+	},
+	"item": [
+		{
+			"name": "👥 USERS ENDPOINTS",
+			"item": [
+				{
+					"name": "GET - Obtener todos los usuarios",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/users",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users"
+							]
+						},
+						"description": "Obtiene la lista de todos los usuarios registrados"
+					},
+					"response": []
+				},
+				{
+					"name": "GET - Obtener usuario por ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/users/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users",
+								"1"
+							]
+						},
+						"description": "Obtiene un usuario específico por su ID"
+					},
+					"response": []
+				},
+				{
+					"name": "GET - Verificar si usuario existe",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/users/1/exists",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users",
+								"1",
+								"exists"
+							]
+						},
+						"description": "Verifica si un usuario existe por su ID"
+					},
+					"response": []
+				},
+				{
+					"name": "GET - Obtener contactos sociales del usuario",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/users/1/contacts",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users",
+								"1",
+								"contacts"
+							]
+						},
+						"description": "Obtiene las redes sociales y contactos de un usuario"
+					},
+					"response": []
+				},
+				{
+					"name": "POST - Crear/Actualizar contactos sociales",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"phone_number\": \"+57 300 123 4567\",\n    \"whatsapp_number\": \"+57 300 123 4567\",\n    \"instagram_url\": \"https://www.instagram.com/mi_usuario\",\n    \"facebook_url\": \"https://www.facebook.com/mi.usuario\",\n    \"twitter_url\": \"https://www.twitter.com/mi_usuario\",\n    \"tiktok_url\": \"https://www.tiktok.com/@mi_usuario\",\n    \"linkedin_url\": \"https://www.linkedin.com/in/mi-usuario\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/users/1/contacts",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users",
+								"1",
+								"contacts"
+							]
+						},
+						"description": "Crea o actualiza las redes sociales y contactos de un usuario"
+					},
+					"response": []
+				},
+				{
+					"name": "POST - Verificar si email está registrado",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"test@example.com\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/users/check-email",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users",
+								"check-email"
+							]
+						},
+						"description": "Verifica si un email ya está registrado en el sistema"
+					},
+					"response": []
+				},
+				{
+					"name": "POST - Crear nuevo usuario",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"first_name\": \"Juan\",\n    \"middle_name\": \"Carlos\",\n    \"last_name\": \"Pérez\",\n    \"username\": \"juanperez\",\n    \"email\": \"juan.perez@email.com\",\n    \"password\": \"password123\",\n    \"city\": \"Barranquilla\",\n    \"birthdate\": \"1998-05-15\",\n    \"role\": \"student\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/users",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users"
+							]
+						},
+						"description": "Crea un nuevo usuario en el sistema. Role puede ser 'student' o 'landlord'"
+					},
+					"response": []
+				},
+				{
+					"name": "PUT - Actualizar usuario",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"first_name\": \"Juan Carlos\",\n    \"middle_name\": \"Alberto\",\n    \"last_name\": \"Pérez González\",\n    \"city\": \"Cartagena\",\n    \"email\": \"juan.carlos.perez@email.com\",\n    \"birthdate\": \"1998-05-15\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/users/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users",
+								"1"
+							]
+						},
+						"description": "Actualiza los datos de un usuario existente"
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE - Eliminar usuario",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/users/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users",
+								"1"
+							]
+						},
+						"description": "Elimina un usuario del sistema"
+					},
+					"response": []
+				}
+			],
+			"description": "Endpoints relacionados con la gestión de usuarios"
+		},
+		{
+			"name": "🏠 ROOMZ ENDPOINTS",
+			"item": [
+				{
+					"name": "GET - Obtener todas las habitaciones",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/roomz",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"roomz"
+							]
+						},
+						"description": "Obtiene todas las habitaciones disponibles"
+					},
+					"response": []
+				},
+				{
+					"name": "GET - Obtener habitaciones por tipo",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/roomz/type/apartment",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"roomz",
+								"type",
+								"apartment"
+							]
+						},
+						"description": "Obtiene habitaciones por tipo: studio, apartment, o residential_complex"
+					},
+					"response": []
+				},
+				{
+					"name": "GET - Obtener habitación por ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/roomz/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"roomz",
+								"1"
+							]
+						},
+						"description": "Obtiene una habitación específica por su ID"
+					},
+					"response": []
+				},
+				{
+					"name": "POST - Crear nueva habitación",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user_id\": 2,\n    \"title\": \"Habitación cerca a la Universidad\",\n    \"subtitle\": \"Cómoda habitación estudiantil\",\n    \"details\": \"Internet, servicios incluidos\",\n    \"description\": \"Una habitación cómoda cerca del campus con internet y servicios incluidos.\",\n    \"address\": \"Calle 123 #45-67, Barranquilla\",\n    \"price\": 350000.00,\n    \"roomz_type\": \"apartment\",\n    \"is_available\": true\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/roomz",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"roomz"
+							]
+						},
+						"description": "Crea una nueva habitación. Types: studio, apartment, residential_complex"
+					},
+					"response": []
+				},
+				{
+					"name": "PUT - Actualizar habitación",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Habitación Premium cerca a la Universidad\",\n    \"subtitle\": \"Habitación estudiantil de lujo\",\n    \"details\": \"Internet, servicios incluidos, aire acondicionado\",\n    \"description\": \"Una habitación premium cerca del campus con todas las comodidades.\",\n    \"address\": \"Calle 123 #45-67, Barranquilla\",\n    \"price\": 450000.00,\n    \"roomz_type\": \"apartment\",\n    \"is_available\": true\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/roomz/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"roomz",
+								"1"
+							]
+						},
+						"description": "Actualiza los datos de una habitación existente"
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE - Eliminar habitación",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/roomz/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"roomz",
+								"1"
+							]
+						},
+						"description": "Elimina una habitación del sistema"
+					},
+					"response": []
+				}
+			],
+			"description": "Endpoints relacionados con la gestión de habitaciones"
+		},
+		{
+			"name": "🧪 TESTS & EXAMPLES",
+			"item": [
+				{
+					"name": "🔍 Ejemplo completo - Crear usuario con contactos",
+					"item": [
+						{
+							"name": "1. Crear nuevo usuario",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"first_name\": \"María\",\n    \"middle_name\": \"Elena\",\n    \"last_name\": \"García\",\n    \"username\": \"mariagarcia\",\n    \"email\": \"maria.garcia@email.com\",\n    \"password\": \"password123\",\n    \"city\": \"Barranquilla\",\n    \"birthdate\": \"1999-03-20\",\n    \"role\": \"student\"\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}/users",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "2. Agregar contactos sociales",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"phone_number\": \"+57 312 555 0123\",\n    \"whatsapp_number\": \"+57 312 555 0123\",\n    \"instagram_url\": \"https://www.instagram.com/maria_garcia_student\",\n    \"facebook_url\": \"https://www.facebook.com/maria.garcia.student\",\n    \"linkedin_url\": \"https://www.linkedin.com/in/maria-garcia-student\"\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}/users/4/contacts",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"users",
+										"4",
+										"contacts"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "3. Verificar contactos creados",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/users/4/contacts",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"users",
+										"4",
+										"contacts"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "🏠 Ejemplo completo - Landlord con habitación",
+					"item": [
+						{
+							"name": "1. Crear landlord",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"first_name\": \"Roberto\",\n    \"middle_name\": \"Antonio\",\n    \"last_name\": \"López\",\n    \"username\": \"robertolopez\",\n    \"email\": \"roberto.lopez@email.com\",\n    \"password\": \"password123\",\n    \"city\": \"Barranquilla\",\n    \"birthdate\": \"1980-12-15\",\n    \"role\": \"landlord\"\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}/users",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "2. Agregar contactos del landlord",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"phone_number\": \"+57 301 444 5678\",\n    \"whatsapp_number\": \"+57 301 444 5678\",\n    \"facebook_url\": \"https://www.facebook.com/roberto.lopez.propiedades\",\n    \"linkedin_url\": \"https://www.linkedin.com/in/roberto-lopez-propiedades\"\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}/users/5/contacts",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"users",
+										"5",
+										"contacts"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "3. Crear habitación del landlord",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"user_id\": 5,\n    \"title\": \"Estudio moderno en el centro\",\n    \"subtitle\": \"Perfecto para estudiantes\",\n    \"details\": \"Totalmente amoblado, wifi, A/C\",\n    \"description\": \"Hermoso estudio en el centro de la ciudad, completamente amoblado con todas las comodidades para estudiantes. Incluye wifi, aire acondicionado y servicios públicos.\",\n    \"address\": \"Carrera 50 #80-120, Centro, Barranquilla\",\n    \"price\": 550000.00,\n    \"roomz_type\": \"studio\",\n    \"is_available\": true\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}/roomz",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"roomz"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:3000/api/v1",
+			"type": "string",
+			"description": "URL base de la API RommieZ"
+		}
+	]
+}
