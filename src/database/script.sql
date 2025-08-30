@@ -2,39 +2,6 @@ DROP DATABASE IF EXISTS RoomieZ;
 CREATE DATABASE RoomieZ;
 USE RoomieZ;
 
--- SHOW DATA
-
-SHOW TABLES;
-
--- CONSULTAS PERSONALIZADAS PARA VISUALIZAR DATOS
-
--- Ver todos los usuarios
-SELECT * FROM users;
-
--- Ver todas las publicaciones con el nombre del landlord
-SELECT p.*, u.first_name AS landlord_first_name, u.last_name AS landlord_last_name
-FROM roomz p
-JOIN users u ON p.user_id = u.id;
-
--- View all bookings with student data and publication
-SELECT b.*, u.first_name AS student_first_name, u.last_name AS student_last_name, p.title AS publication_title
-FROM bookings b
-JOIN users u ON b.user_id = u.id
-JOIN roomz p ON b.publication_id = p.id;
-
--- Ver todas las transacciones con datos de la reserva y usuario
-SELECT t.*, b.user_id, u.first_name AS student_first_name, u.last_name AS student_last_name
-FROM transactions t
-JOIN bookings b ON t.booking_id = b.id
-JOIN users u ON b.user_id = u.id;
-
--- View all reviews with user data and publication
-SELECT r.*, u.first_name AS reviewer_first_name, u.last_name AS reviewer_last_name, p.title AS publication_title
-FROM reviews r
-JOIN users u ON r.user_id = u.id
-JOIN bookings b ON r.booking_id = b.id
-JOIN roomz p ON b.publication_id = p.id;
-
 -- USERS
 CREATE TABLE users (
 	id INT AUTO_INCREMENT PRIMARY KEY,
@@ -159,7 +126,7 @@ CREATE TABLE contact (
         CHECK (phone_number IS NOT NULL OR whatsapp_number IS NOT NULL OR 
                instagram_url IS NOT NULL OR facebook_url IS NOT NULL OR 
                twitter_url IS NOT NULL OR tiktok_url IS NOT NULL OR 
-               linkedin_url IS NOT NULL);
+               linkedin_url IS NOT NULL));
 
 
 INSERT INTO users (first_name, middle_name, last_name, username, email, `password`, city, birthdate, `role`)
@@ -193,7 +160,7 @@ VALUES
 (1, 1, 5, 'The room was excellent, very clean and close to the university.'),
 (1, 1, 4, 'Everything was good but could improve internet speed.');
 
--- DATOS DE CONTACTO CON URLs
+-- CONTACT DATA WITH URLs
 INSERT INTO contact (user_id, phone_number, whatsapp_number, instagram_url, facebook_url, twitter_url, tiktok_url, linkedin_url)
 VALUES
 (1, 
@@ -223,4 +190,31 @@ VALUES
  'https://www.tiktok.com/@carlos_student_life',
  NULL
 );
+
+-- ==========================================
+-- VERIFICATION AND VISUALIZATION QUERIES
+-- ==========================================
+
+-- Show all created tables
+SHOW TABLES;
+
+-- View all users
+SELECT * FROM users;
+
+-- View all publications with landlord name
+SELECT p.*, u.first_name AS landlord_first_name, u.last_name AS landlord_last_name
+FROM roomz p
+JOIN users u ON p.user_id = u.id;
+
+-- View all bookings with student data and publication
+SELECT b.*, u.first_name AS student_first_name, u.last_name AS student_last_name, p.title AS publication_title
+FROM bookings b
+JOIN users u ON b.user_id = u.id
+JOIN roomz p ON b.publication_id = p.id;
+
+-- View all transactions with booking and user data
+SELECT t.*, b.user_id, u.first_name AS student_first_name, u.last_name AS student_last_name
+FROM transactions t
+JOIN bookings b ON t.booking_id = b.id
+JOIN users u ON b.user_id = u.id;
 

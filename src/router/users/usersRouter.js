@@ -7,6 +7,7 @@ import {
     postUser, 
     putUser, 
     getUserContacts, 
+    postUserContacts,
     deleteUser 
 } from '../../controller/usersController.js'
 
@@ -23,6 +24,9 @@ usersRouter.get('/:id/exists', checkUserExistence);
 
 // Get user social contacts
 usersRouter.get('/:id/contacts', getUserContacts);
+
+// Create/Update user social contacts
+usersRouter.post('/:id/contacts', postUserContacts);
 
 // Check if email is registered
 usersRouter.post('/check-email', checkEmailRegistration);

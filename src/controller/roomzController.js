@@ -85,14 +85,14 @@ export const createRoomzController = async (req, res) => {
 export const updateRoomzController = async (req, res) => {
     try {
         const id = req.params.id;
-        const { user_id, title, subtitle, details, description, address, price, roomz_type, is_available } = req.body;
+        const { title, subtitle, details, description, address, price, roomz_type, is_available } = req.body;
         const validTypes = ['studio', 'apartment', 'residential_complex'];
         
         if (!id || isNaN(id)) {
             return res.status(400).json({ error: "You need to enter a valid numeric id" });
         }
-        if (!user_id || !title || !subtitle || !details || !description || !address || !price || !roomz_type || is_available === undefined) {
-            return res.status(400).json({ error: "All fields are required (user_id, title, subtitle, details, description, address, price, roomz_type, is_available)" });
+        if (!title || !subtitle || !details || !description || !address || !price || !roomz_type || is_available === undefined) {
+            return res.status(400).json({ error: "All fields are required (title, subtitle, details, description, address, price, roomz_type, is_available)" });
         }
         
         if (!validTypes.includes(roomz_type)) {
@@ -101,10 +101,24 @@ export const updateRoomzController = async (req, res) => {
             });
         }
         
-        const updated = await updateRoomz(parseInt(id), { user_id, title, subtitle, details, description, address, price, roomz_type, is_available });
-        if (!updated) {
+        // Primero verificamos que la habitación existe y obtenemos su user_id
+        const existingRoom = await getRoomzById(parseInt(id));
+        if (!existingRoom) {
             return res.status(404).json({ error: "Room not found" });
         }
+        
+        const updated = await updateRoomz(parseInt(id), { 
+            user_id: existingRoom.user_id, // Mantenemos el user_id original
+            title, 
+            subtitle, 
+            details, 
+            description, 
+            address, 
+            price, 
+            roomz_type, 
+            is_available 
+        });
+        
         res.status(200).json({ message: "Room updated successfully" });
     } catch (error) {
         res.status(500).json({ error: "Internal server error", details: error.message });
