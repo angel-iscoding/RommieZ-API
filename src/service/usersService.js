@@ -43,6 +43,44 @@ export const getUserSocialContacts = async (userId) => {
     return rows[0];
 };
 
+export const createUserSocialContacts = async (userId, contactData) => {
+    const { 
+        phone_number, 
+        whatsapp_number, 
+        instagram_url, 
+        facebook_url, 
+        twitter_url, 
+        tiktok_url, 
+        linkedin_url 
+    } = contactData;
+    
+    // Check if user already has contacts
+    const existingContacts = await getUserSocialContacts(userId);
+    
+    if (existingContacts) {
+        // Update existing contacts
+        const [result] = await pool.query(
+            `UPDATE contact 
+             SET phone_number=?, whatsapp_number=?, instagram_url=?, facebook_url=?, 
+                 twitter_url=?, tiktok_url=?, linkedin_url=?, updated_at=CURRENT_TIMESTAMP 
+             WHERE user_id=?`,
+            [phone_number, whatsapp_number, instagram_url, facebook_url, 
+             twitter_url, tiktok_url, linkedin_url, userId]
+        );
+        return result.affectedRows > 0;
+    } else {
+        // Create new contacts
+        const [result] = await pool.query(
+            `INSERT INTO contact (user_id, phone_number, whatsapp_number, instagram_url, 
+                                facebook_url, twitter_url, tiktok_url, linkedin_url) 
+             VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+            [userId, phone_number, whatsapp_number, instagram_url, facebook_url, 
+             twitter_url, tiktok_url, linkedin_url]
+        );
+        return result.insertId;
+    }
+};
+
 export const deleteUserById = async (id) => {
     const [result] = await pool.query("DELETE FROM users WHERE id = ?", [id]);
     return result.affectedRows > 0;

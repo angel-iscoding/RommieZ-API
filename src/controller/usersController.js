@@ -7,6 +7,7 @@ import {
     createUser,
     updateUser,
     getUserSocialContacts,
+    createUserSocialContacts,
     deleteUserById
 } from "../service/usersService.js";
 
@@ -133,6 +134,92 @@ export const getUserContacts = async (req, res) => {
         }
         res.status(200).json({ message: "User contacts retrieved successfully", data: contacts });
     } catch (error) {
+        res.status(500).json({ error: "Internal server error", details: error.message });
+    }
+};
+
+// Create or update user social contacts
+export const postUserContacts = async (req, res) => {
+    try {
+        const id = req.params.id;
+        if (!id || isNaN(id)) {
+            return res.status(400).json({ error: "You need to enter a valid numeric id" });
+        }
+
+        // Check if user exists
+        const userExists = await checkUserExists(parseInt(id));
+        if (!userExists) {
+            return res.status(404).json({ error: "User not found" });
+        }
+
+        const {
+            phone_number,
+            whatsapp_number,
+            instagram_url,
+            facebook_url,
+            twitter_url,
+            tiktok_url,
+            linkedin_url
+        } = req.body;
+
+        // Validate that at least one contact method is provided
+        if (!phone_number && !whatsapp_number && !instagram_url && 
+            !facebook_url && !twitter_url && !tiktok_url && !linkedin_url) {
+            return res.status(400).json({ 
+                error: "At least one contact method must be provided" 
+            });
+        }
+
+        const contactData = {
+            phone_number: phone_number || null,
+            whatsapp_number: whatsapp_number || null,
+            instagram_url: instagram_url || null,
+            facebook_url: facebook_url || null,
+            twitter_url: twitter_url || null,
+            tiktok_url: tiktok_url || null,
+            linkedin_url: linkedin_url || null
+        };
+
+        const result = await createUserSocialContacts(parseInt(id), contactData);
+        
+        if (result) {
+            // Get the updated/created contacts to return them
+            const updatedContacts = await getUserSocialContacts(parseInt(id));
+            res.status(201).json({ 
+                message: "User contacts created/updated successfully", 
+                data: updatedContacts 
+            });
+        } else {
+            res.status(500).json({ error: "Failed to create/update user contacts" });
+        }
+
+    } catch (error) {
+        // Handle specific database constraint errors
+        if (error.code === 'ER_CHECK_CONSTRAINT_VIOLATED') {
+            if (error.sqlMessage.includes('chk_instagram_url')) {
+                return res.status(400).json({ error: "Invalid Instagram URL format" });
+            }
+            if (error.sqlMessage.includes('chk_facebook_url')) {
+                return res.status(400).json({ error: "Invalid Facebook URL format" });
+            }
+            if (error.sqlMessage.includes('chk_twitter_url')) {
+                return res.status(400).json({ error: "Invalid Twitter/X URL format" });
+            }
+            if (error.sqlMessage.includes('chk_tiktok_url')) {
+                return res.status(400).json({ error: "Invalid TikTok URL format" });
+            }
+            if (error.sqlMessage.includes('chk_linkedin_url')) {
+                return res.status(400).json({ error: "Invalid LinkedIn URL format" });
+            }
+            if (error.sqlMessage.includes('chk_phone_format')) {
+                return res.status(400).json({ error: "Invalid phone number format" });
+            }
+            if (error.sqlMessage.includes('chk_whatsapp_format')) {
+                return res.status(400).json({ error: "Invalid WhatsApp number format" });
+            }
+            return res.status(400).json({ error: "Invalid contact data format" });
+        }
+        
         res.status(500).json({ error: "Internal server error", details: error.message });
     }
 };
