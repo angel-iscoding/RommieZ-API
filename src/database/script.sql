@@ -126,7 +126,7 @@ CREATE TABLE contact (
         CHECK (phone_number IS NOT NULL OR whatsapp_number IS NOT NULL OR 
                instagram_url IS NOT NULL OR facebook_url IS NOT NULL OR 
                twitter_url IS NOT NULL OR tiktok_url IS NOT NULL OR 
-               linkedin_url IS NOT NULL);
+               linkedin_url IS NOT NULL));
 
 
 INSERT INTO users (first_name, middle_name, last_name, username, email, `password`, city, birthdate, `role`)
