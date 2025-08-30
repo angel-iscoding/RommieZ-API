@@ -62,7 +62,7 @@ CREATE TABLE transactions (
 );
 
 -- REVIEWS 
-/*CREATE TABLE reviews (
+CREATE TABLE reviews (
     id INT AUTO_INCREMENT PRIMARY KEY,
     booking_id INT NOT NULL,
     user_id INT NOT NULL,
@@ -73,7 +73,8 @@ CREATE TABLE transactions (
         ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (user_id) REFERENCES users(id)
         ON DELETE CASCADE ON UPDATE CASCADE
-);*/
+);
+
 -- TABLA CONTACT CON URLs DE REDES SOCIALES
 CREATE TABLE contact (
     id INT AUTO_INCREMENT PRIMARY KEY,
