@@ -1,0 +1,8 @@
+[build]
+builder = "dockercompose"
+
+[deploy]
+startCommand = "docker-compose up"
+
+[settings]
+generateDomain = true
