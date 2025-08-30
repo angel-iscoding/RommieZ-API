@@ -13,6 +13,7 @@ GET: /users                           - Get all users
 GET: /users/:id                       - Get user by id  
 GET: /users/:id/exists                - Check if user exists
 GET: /users/:id/contacts              - Get user social contacts
+POST: /users/:id/contacts             - Create/Update user social contacts
 POST: /users/check-email              - Check if email is registered
 POST: /users                          - Create user
 PUT: /users/:id                       - Update user (name, city, email, birthdate)
@@ -28,7 +29,7 @@ DELETE: /roomz/:id                    - Delete roomz
 */
 
 router.get('/', (req, res) => {
-    res.send(`Server listening on Endpoint: localhost:${PORT}/api/${VERSION}`);
+    res.send(`Server listening on endpoint: localhost:${PORT}/api/${VERSION}`);
 });
 
 router.use('/roomz', roomzRouter);
