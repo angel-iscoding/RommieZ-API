@@ -4,9 +4,9 @@ import {
     getRoomzByType,
     createRoomz,
     updateRoomz,
-    deleteRoomzById
+    deleteRoomzById,
+    getRoomzByUserId
 } from "../service/roomzService.js";
-
 
 export const getAllRoomsController = async (req, res) => {
     try {
@@ -41,6 +41,21 @@ export const getRoomzByTypeController = async (req, res) => {
     }
 };
 
+export const getRoomzByUserIdController = async (req, res) => {
+    try {
+        const { id } = req.params;
+        if (!id || isNaN(id)) {
+            return res.status(400).json({ error: "You need to enter a valid numeric id" });
+        }
+        const roomz = await getRoomzByUserId(parseInt(id));
+        if (roomz.length === 0) {
+            return res.status(404).json({ message: "No roomz found for this user.", roomz: [] });
+        }
+        res.status(200).json({ message: "Roomz for user retrieved successfully", roomz });
+    } catch (error) {
+        res.status(500).json({ error: "Internal server error", details: error.message });
+    }
+};
 
 export const getRoomzByIdController = async (req, res) => {
     try {

@@ -45,6 +45,28 @@ export const getRoomzById = async (id) => {
     };
 };
 
+export const getRoomzByUserId = async (id) => {
+    const [rows] = await pool.query(`
+        SELECT 
+            r.id, r.user_id, r.title, r.subtitle, r.details, r.description, r.address, r.price, r.roomz_type, r.is_available, r.published_at
+        FROM roomz r
+        WHERE user_id = ?`, [id]);
+    
+    return rows.map(r => ({
+        id: r.id,
+        user_id: r.user_id,
+        title: r.title,
+        subtitle: r.subtitle,
+        details: r.details,
+        description: r.description,
+        address: r.address,
+        price: parseFloat(r.price),
+        roomz_type: r.roomz_type,
+        is_available: !!r.is_available,
+        published_at: r.published_at
+    }));
+};
+
 export const getRoomzByType = async (roomzType) => {
     const [rows] = await pool.query(`
         SELECT 

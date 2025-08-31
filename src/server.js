@@ -6,7 +6,7 @@ import { VERSION } from './config/dotenv.js';
 const server = express();
 
 server.use(express.json());
-server.use(cors());
+server.use(cors({ origin: '*' }));
 server.use(`/api/${VERSION}`, router);
 
 export default server;

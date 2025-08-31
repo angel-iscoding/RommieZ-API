@@ -5,13 +5,17 @@ import {
 	getRoomzByTypeController,
 	createRoomzController,
 	updateRoomzController,
-	deleteRoomzController
+	deleteRoomzController,
+	getRoomzByUserIdController
 } from "../../controller/roomzController.js";
 
 const roomzRouter = Router();
 
 // Get all roomz (regardless of type)
 roomzRouter.get('/', getAllRoomsController);
+
+// Get all roomz for a specific user
+roomzRouter.get('/user/id', getRoomzByUserIdController);
 
 // Get roomz by type (studio, apartment, residential_complex)
 roomzRouter.get('/type/:type', getRoomzByTypeController);

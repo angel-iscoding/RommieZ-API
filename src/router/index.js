@@ -22,6 +22,7 @@ DELETE: /users/:id                    - Delete user
 ROOMZ ENDPOINTS:
 GET: /roomz                           - Get all roomz (all types)
 GET: /roomz/type/:type                - Get roomz by type (studio, apartment, residential_complex)
+GET: /roomz/user/:id                  - Get all roomz for a specific user
 GET: /roomz/:id                       - Get roomz by id
 POST: /roomz                          - Create roomz
 PUT: /roomz/:id                       - Update roomz

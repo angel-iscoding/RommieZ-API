@@ -243,6 +243,26 @@
 					"response": []
 				},
 				{
+					"name": "GET - Obtener habitaciones de un usuario",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/roomz/user/2",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"roomz",
+								"user",
+								"2"
+							]
+						},
+						"description": "Obtiene todas las habitaciones publicadas por un usuario específico (por su userId)"
+					},
+					"response": []
+				},
+				{
 					"name": "GET - Obtener habitaciones por tipo",
 					"request": {
 						"method": "GET",
