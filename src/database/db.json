@@ -60,60 +60,6 @@
             ]
           }
         },
-      "GET /roomz/user/:userId": {
-        "success": {
-          "status": 200,
-          "response": {
-            "roomz": [
-              {
-                "id": 1,
-                "user_id": 2,
-                "title": "Room near University",
-                "subtitle": "Cozy student accommodation",
-                "details": "Internet, utilities included",
-                "description": "A cozy room close to campus with internet and utilities included.",
-                "address": "123 Main St, City",
-                "price": "350.00",
-                "roomz_type": "apartment",
-                "is_available": 1,
-                "published_at": "2025-01-08T10:30:00.000Z"
-              },
-              {
-                "id": 2,
-                "user_id": 2,
-                "title": "Shared apartment",
-                "subtitle": "Shared living space",
-                "details": "Utilities included",
-                "description": "One bed available in a shared apartment, utilities included.",
-                "address": "456 College Ave, City",
-                "price": "250.00",
-                "roomz_type": "apartment",
-                "is_available": 1,
-                "published_at": "2025-01-08T10:30:00.000Z"
-              }
-            ]
-          }
-        },
-        "no_roomz": {
-          "status": 404,
-          "response": {
-            "message": "No roomz found for this user.",
-            "roomz": []
-          }
-        },
-        "user_not_found": {
-          "status": 404,
-          "response": {
-            "error": "User not found"
-          }
-        },
-        "invalid_id": {
-          "status": 400,
-          "response": {
-            "error": "You need to enter a valid numeric id"
-          }
-        }
-      },
         "no_users": {
           "status": 404,
           "response": {
@@ -457,6 +403,60 @@
           "response": {
             "message": "No roomz found.",
             "roomz": []
+          }
+        }
+      },
+      "GET /roomz/user/:userId": {
+        "success": {
+          "status": 200,
+          "response": {
+            "roomz": [
+              {
+                "id": 1,
+                "user_id": 2,
+                "title": "Room near University",
+                "subtitle": "Cozy student accommodation",
+                "details": "Internet, utilities included",
+                "description": "A cozy room close to campus with internet and utilities included.",
+                "address": "123 Main St, City",
+                "price": "350.00",
+                "roomz_type": "apartment",
+                "is_available": 1,
+                "published_at": "2025-01-08T10:30:00.000Z"
+              },
+              {
+                "id": 2,
+                "user_id": 2,
+                "title": "Shared apartment",
+                "subtitle": "Shared living space",
+                "details": "Utilities included",
+                "description": "One bed available in a shared apartment, utilities included.",
+                "address": "456 College Ave, City",
+                "price": "250.00",
+                "roomz_type": "apartment",
+                "is_available": 1,
+                "published_at": "2025-01-08T10:30:00.000Z"
+              }
+            ]
+          }
+        },
+        "no_roomz": {
+          "status": 404,
+          "response": {
+            "message": "No roomz found for this user.",
+            "roomz": []
+          }
+        },
+        "user_not_found": {
+          "status": 404,
+          "response": {
+            "error": "User not found"
+          }
+        },
+        "invalid_id": {
+          "status": 400,
+          "response": {
+            "error": "You need to enter a valid numeric id"
           }
         }
       },
