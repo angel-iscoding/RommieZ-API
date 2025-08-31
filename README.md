@@ -81,6 +81,7 @@ A comprehensive RESTful API for student accommodation management, connecting stu
 |--------|----------|-------------|
 | `GET` | `/roomz` | Get all rooms |
 | `GET` | `/roomz/type/:type` | Get rooms by type |
+| `GET` | `/roomz/user/:userId` | Get all rooms for a specific user |
 | `GET` | `/roomz/:id` | Get room by ID |
 | `POST` | `/roomz` | Create new room |
 | `PUT` | `/roomz/:id` | Update room information |
