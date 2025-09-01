@@ -44,6 +44,7 @@ export const getRoomzByTypeController = async (req, res) => {
 export const getRoomzByUserIdController = async (req, res) => {
     try {
         const { id } = req.params;
+
         if (!id || isNaN(id)) {
             return res.status(400).json({ error: "You need to enter a valid numeric id" });
         }
@@ -89,8 +90,8 @@ export const createRoomzController = async (req, res) => {
             });
         }
         
-        const roomId = await createRoomz({ user_id, title, subtitle, details, description, address, price, roomz_type, is_available });
-        res.status(201).json({ message: "Room created successfully", roomId });
+        const id = await createRoomz({ user_id, title, subtitle, details, description, address, price, roomz_type, is_available });
+        res.status(201).json({ message: "Room created successfully", id });
     } catch (error) {
         res.status(500).json({ error: "Internal server error", details: error.message });
     }

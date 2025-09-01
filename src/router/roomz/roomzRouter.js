@@ -15,7 +15,7 @@ const roomzRouter = Router();
 roomzRouter.get('/', getAllRoomsController);
 
 // Get all roomz for a specific user
-roomzRouter.get('/user/id', getRoomzByUserIdController);
+roomzRouter.get('/user/:id', getRoomzByUserIdController);
 
 // Get roomz by type (studio, apartment, residential_complex)
 roomzRouter.get('/type/:type', getRoomzByTypeController);
