@@ -202,7 +202,7 @@
           },
           "response": {
             "message": "User created successfully",
-            "userId": 4
+            "id": 4
           }
         },
         "email_already_exists": {
@@ -579,7 +579,7 @@
           },
           "response": {
             "message": "Room created successfully",
-            "roomId": 4
+            "id": 4
           }
         },
         "missing_fields": {
