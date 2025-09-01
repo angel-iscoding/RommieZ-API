@@ -1,4 +1,4 @@
-# 🏠 RommieZ API
+# 🏠 RoomieZ API
 
 A comprehensive RESTful API for student accommodation management, connecting students with landlords for room rentals.
 
