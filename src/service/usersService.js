@@ -38,12 +38,12 @@ export const updateUser = async (id, user) => {
     return result.affectedRows > 0;
 };
 
-export const getUserSocialContacts = async (userId) => {
-    const [rows] = await pool.query("SELECT * FROM contact WHERE user_id = ?", [userId]);
+export const getUserSocialContacts = async (id) => {
+    const [rows] = await pool.query("SELECT * FROM contact WHERE user_id = ?", [id]);
     return rows[0];
 };
 
-export const createUserSocialContacts = async (userId, contactData) => {
+export const createUserSocialContacts = async (id, contactData) => {
     const { 
         phone_number, 
         whatsapp_number, 
@@ -55,7 +55,7 @@ export const createUserSocialContacts = async (userId, contactData) => {
     } = contactData;
     
     // Check if user already has contacts
-    const existingContacts = await getUserSocialContacts(userId);
+    const existingContacts = await getUserSocialContacts(id);
     
     if (existingContacts) {
         // Update existing contacts
@@ -65,7 +65,7 @@ export const createUserSocialContacts = async (userId, contactData) => {
                  twitter_url=?, tiktok_url=?, linkedin_url=?, updated_at=CURRENT_TIMESTAMP 
              WHERE user_id=?`,
             [phone_number, whatsapp_number, instagram_url, facebook_url, 
-             twitter_url, tiktok_url, linkedin_url, userId]
+             twitter_url, tiktok_url, linkedin_url, id]
         );
         return result.affectedRows > 0;
     } else {
@@ -74,7 +74,7 @@ export const createUserSocialContacts = async (userId, contactData) => {
             `INSERT INTO contact (user_id, phone_number, whatsapp_number, instagram_url, 
                                 facebook_url, twitter_url, tiktok_url, linkedin_url) 
              VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
-            [userId, phone_number, whatsapp_number, instagram_url, facebook_url, 
+            [id, phone_number, whatsapp_number, instagram_url, facebook_url, 
              twitter_url, tiktok_url, linkedin_url]
         );
         return result.insertId;

@@ -80,8 +80,8 @@ export const postUser = async (req, res) => {
             return res.status(400).json({ error: "Email is already registered" });
         }
         
-        const userId = await createUser({ first_name, middle_name, last_name, username, email, password, city, birthdate, role });
-        res.status(201).json({ message: "User created successfully", userId });
+        const id = await createUser({ first_name, middle_name, last_name, username, email, password, city, birthdate, role });
+        res.status(201).json({ message: "User created successfully", id });
     } catch (error) {
         res.status(500).json({ error: "Internal server error", details: error.message });
     }
