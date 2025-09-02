@@ -5,7 +5,6 @@ import { VERSION } from './config/dotenv.js';
 
 const server = express();
 
-// Verificar configuración de Google Cloud al iniciar
 server.use(express.json());
 server.use(cors({ origin: '*' }));
 server.use(`/api/${VERSION}`, router);

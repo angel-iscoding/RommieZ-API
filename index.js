@@ -1,5 +1,5 @@
 import server from "./src/server.js";
-import { PORT, VERSION, DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE, DB_PORT } from "./src/config/dotenv.js";
+import { PORT, VERSION, DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE } from "./src/config/dotenv.js";
 
 
 const appInit = async () => {
@@ -15,7 +15,6 @@ const appInit = async () => {
                 DB_USER: ${DB_USER}
                 DB_PASSWORD: ${DB_PASSWORD}
                 DB_DATABASE: ${DB_DATABASE}
-                DB_PORT: ${DB_PORT}
 
                 Google Cloud SQL Configuration:
 
