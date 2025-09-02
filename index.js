@@ -19,9 +19,7 @@ const appInit = async () => {
 
                 Google Cloud SQL Configuration:
 
-                NODE_ENV: ${NODE_ENV}
-                DB_INSTANCE_CONNECTION_NAME: ${DB_INSTANCE_CONNECTION_NAME}
-                GOOGLE_APPLICATION_CREDENTIALS: ${GOOGLE_APPLICATION_CREDENTIALS}
+                Socket Path: ${socketPath}
                 `);
 
             console.log(`Server listening on endpoint: http://0.0.0.0:${PORT}/api/${VERSION}`);
