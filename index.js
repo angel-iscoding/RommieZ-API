@@ -1,5 +1,5 @@
 import server from "./src/server.js";
-import { PORT, VERSION, DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE } from "./src/config/dotenv.js";
+import { PORT, VERSION, DB_USER, DB_PASSWORD, DB_DATABASE } from "./src/config/dotenv.js";
 
 
 const appInit = async () => {
@@ -11,14 +11,13 @@ const appInit = async () => {
                 
                 Database environment variables:
 
-                DB_HOST: ${DB_HOST}
                 DB_USER: ${DB_USER}
                 DB_PASSWORD: ${DB_PASSWORD}
                 DB_DATABASE: ${DB_DATABASE}
 
                 Google Cloud SQL Configuration:
 
-                Socket Path: ${socketPath}
+                
                 `);
 
             console.log(`Server listening on endpoint: http://0.0.0.0:${PORT}/api/${VERSION}`);
