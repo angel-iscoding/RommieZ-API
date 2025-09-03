@@ -1,8 +1,7 @@
 import { Router } from "express";
 import roomzRouter from './roomz/roomzRouter.js';
 import usersRouter from './users/usersRouter.js'
-import { PORT, VERSION } from "../config/dotenv.js";
-import pool from "../config/databaseConecction.js";
+import { VERSION } from "../config/dotenv.js";
 
 const router = Router();
 
@@ -34,28 +33,7 @@ DELETE: /roomz/:id                    - Delete roomz
 */
 
 router.get('/', (req, res) => {
-    res.send(`Server listening on endpoint: localhost:${PORT}/api/${VERSION}`);
-});
-
-// Health check endpoint para Google Cloud Run
-router.get('/health', async (req, res) => {
-    try {
-        // Verificar conexión a la base de datos
-        await pool.query('SELECT 1');
-        res.status(200).json({
-            status: 'healthy',
-            timestamp: new Date().toISOString(),
-            database: 'connected'
-        });
-    } catch (error) {
-        console.error('Health check failed:', error);
-        res.status(503).json({
-            status: 'unhealthy',
-            timestamp: new Date().toISOString(),
-            database: 'disconnected',
-            error: error.message
-        });
-    }
+    res.send(`Server listening on endpoint: /api/${VERSION}`);
 });
 
 router.use('/roomz', roomzRouter);

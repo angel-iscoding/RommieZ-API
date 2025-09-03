@@ -1,18 +1,20 @@
-# Dockerfile for RommieZ-API
-FROM node:20-alpine
+# Usa una imagen base de Node.js
+FROM node:18-slim
 
-# Set working directory
+# Establece el directorio de trabajo en /app
 WORKDIR /app
 
-# Copy package files and install dependencies
+# Copia los archivos de configuración de dependencias
 COPY package*.json ./
-RUN npm install --production
 
-# Copy the rest of the app
+# Instala las dependencias
+RUN npm install
+
+# Copia el resto del código de la aplicación
 COPY . .
 
-# Expose the API port
-EXPOSE 3010
+# Expone el puerto que tu aplicación usará
+EXPOSE 8080
 
-# Start the API
-CMD ["npm", "run", "start"]
+# Comando para ejecutar la aplicación
+CMD ["npm", "start"]
